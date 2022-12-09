@@ -1,0 +1,20 @@
+version: '3'
+
+# service description
+services:
+
+  # portainer agent
+  portainer-agent:
+    image: portainer/agent:latest
+    container_name: portainer-agent
+    hostname: portainer-agent
+    restart: always
+    ports:
+      - ${PORTAINER_AGENT_CONT_PORT_CONF}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    labels:
+      # enbale watchtower updates
+      - "com.centurylinklabs.watchtower.enable=true"
